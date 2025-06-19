@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>My Mini App</title>
+</head>
+<body>
+<script>
+    // Проверяем, что Telegram WebApp доступен
+    if (window.Telegram && window.Telegram.WebApp) {
+        const webApp = window.Telegram.WebApp;
+
+        // В initDataUnsafe содержатся данные о пользователе, среди них user.id
+        const userData = webApp.initDataUnsafe.user;
+        if (userData) {
+            const userId = userData.id;
+            console.log("User ID:", userId);
+        } else {
+            console.log("Данные о пользователе не найдены.");
+        }
+
+        // Развернуть web app на весь экран
+        webApp.expand();
+    } else {
+        console.log("WebApp не доступен. Убедитесь, что приложение открыто из Telegram.");
+    }
+</script>
+</body>
+</html>

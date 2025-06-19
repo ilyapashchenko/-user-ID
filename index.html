@@ -7,23 +7,31 @@
 </head>
 <body>
 <script>
-    // Проверяем, что Telegram WebApp доступен
-    if (window.Telegram && window.Telegram.WebApp) {
-        const webApp = window.Telegram.WebApp;
+    console.log("Страница загружена.");
 
-        // В initDataUnsafe содержатся данные о пользователе, среди них user.id
-        const userData = webApp.initDataUnsafe.user;
-        if (userData) {
-            const userId = userData.id;
-            console.log("User ID:", userId);
+    if (window.Telegram) {
+        console.log("Объект Telegram существует");
+
+        if (Telegram.WebApp) {
+            console.log("WebApp доступен!");
+
+            const webApp = Telegram.WebApp;
+            const userData = webApp.initDataUnsafe.user;
+
+            if (userData) {
+                console.log("User ID:", userData.id);
+                console.log("Username:", userData.username);
+                console.log("Full name:", userData.first_name, userData.last_name);
+            } else {
+                console.log("initDataUnsafe.user — пустой или недоступен.");
+            }
+
+            webApp.expand();
         } else {
-            console.log("Данные о пользователе не найдены.");
+            console.log("Telegram.WebApp НЕ доступен — приложение не запущено через Telegram.");
         }
-
-        // Развернуть web app на весь экран
-        webApp.expand();
     } else {
-        console.log("WebApp не доступен. Убедитесь, что приложение открыто из Telegram.");
+        console.log("window.Telegram НЕ определён — не Telegram среда.");
     }
 </script>
 </body>
